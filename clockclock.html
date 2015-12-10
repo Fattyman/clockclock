@@ -3,12 +3,17 @@
 		<meta name="apple-mobile-web-app-capable" contents="yes">
 		<link href="css/style.css" rel="stylesheet">
 		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript">
+			var app= angular.module('ClockClockApp',[]);
+		</script>
 		<script type="text/javascript" src="js/baseutils.js"></script>
-		<script type="text/javascript" src="js/clockclockconfig.js"></script>
-		<script type="text/javascript" src="js/clockclock.js"></script>
-		<script type="text/javascript" src="js/clockclockutils.js"></script>
-		<script type="text/javascript" src="js/clockclockpreparers.js"></script>
-		<script type="text/javascript" src="js/clockclockcyphers.js"></script>
+		<script type="text/javascript" src="js/clockclock/config.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="js/clockclock/utils.js"></script>
+		<script type="text/javascript" src="js/clockclock/preparers.js"></script>
+		<script type="text/javascript" src="js/clockclock/cyphers.js"></script>
+		<script type="text/javascript" src="js/controllers/clockclock.js"></script>
+		<script type="text/javascript" src="js/controllers/morphing.js"></script>
 		<script type="text/javascript">
 			var checkload = function(){
 				try{
@@ -36,21 +41,6 @@
 					}
 				}
 			};
-			
-			var app= angular.module('ClockClockApp',[]);
-
-			app.controller('MorphingCtrl',function($scope){
-				$scope.change=function(m)
-				{
-					morphingMode=m;
-				}
-			});
-			
-			app.controller('ClockClockCtrl',function($scope){
-				$scope.change=function(cfgMod){
-					cfgMode=cfgMod;
-				}
-			});
 		</script>
 	</head>
 	<body ng-app="ClockClockApp" style="margin:0;" style="background-color:#000;" onload="javascript:checkload();">

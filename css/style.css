@@ -1,0 +1,17 @@
+.blue{
+	color:#00f;
+	background-color:#fff;
+}
+.blue2{
+	color:#0ff;
+	background-color:#ff3;
+}
+.breit{
+	width:960px;
+}
+.schmal{
+	width:400px;
+}
+span{
+	float:left;
+}

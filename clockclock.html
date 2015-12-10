@@ -1,0 +1,73 @@
+<html>
+	<head>
+		<meta name="apple-mobile-web-app-capable" contents="yes">
+		<link href="css/style.css" rel="stylesheet">
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/baseutils.js"></script>
+		<script type="text/javascript" src="js/clockclockconfig.js"></script>
+		<script type="text/javascript" src="js/clockclock.js"></script>
+		<script type="text/javascript" src="js/clockclockutils.js"></script>
+		<script type="text/javascript" src="js/clockclockpreparers.js"></script>
+		<script type="text/javascript" src="js/clockclockcyphers.js"></script>
+		<script type="text/javascript">
+			var checkload = function(){
+				try{
+					if(document.readyState !== "complete")
+						setTimeout("checkload()",1)
+					else
+						Controller.start();
+				}catch(e){
+					alert(getMemberInfoOf(e));
+				}
+			};
+
+			function getValueOrDefault(value,defaultValue){
+					return value=="" ? defaultValue : value;
+			}
+			
+			Controller = {
+				start : function(){
+					var clocks = document.getElementsByTagName("span");
+					for(var cl=0;cl<clocks.length;cl++){
+						var div=clocks[cl];
+						if(div.className.indexOf("clockclock")!=-1){
+							new ClockClock(div);
+						}
+					}
+				}
+			};
+			
+			var app= angular.module('ClockClockApp',[]);
+
+			app.controller('MorphingCtrl',function($scope){
+				$scope.change=function(m)
+				{
+					morphingMode=m;
+				}
+			});
+			
+			app.controller('ClockClockCtrl',function($scope){
+				$scope.change=function(cfgMod){
+					cfgMode=cfgMod;
+				}
+			});
+		</script>
+	</head>
+	<body ng-app="ClockClockApp" style="margin:0;" style="background-color:#000;" onload="javascript:checkload();">
+		<center><H1>Clock Clock</H1></center>
+		<div style="font-size:16px;font-weight:bold;">
+			This is a reminescence to the original physical "clock clock" which you can have a look onto this <a target="_blank" href="http://www.humanssince1982.com/the-clock-clock-white/">page</a>.
+		</div><br/><br/>
+		<span>Speed:</span>
+		<select name="cfgMod" ng-init="cfgMod='slow'" ng-model="cfgMod" ng-change="change(cfgMod)" ng-controller="ClockClockCtrl">
+			<option value="slow" selected>Slow</option>
+			<option value="mixed">Mixed</option>
+			<option value="fast">Fast</option>
+			<option value="blitz">Blitz</option>
+		</select><br/><br/>
+		<span>Full animation</span>
+		<input type="checkbox" ng-model="morphingMode" checked ng-init="morphingMode=true" ng-change="change(morphingMode)" ng-controller="MorphingCtrl">
+		<br/><br/>
+		<span hand="5" class="clockclock blue breit"></span><br/>
+	</body>
+</html>

@@ -46,6 +46,7 @@ CypherAnimator = function(){
 		view:null,
 		animationSequences:null,
 		animationFinished:true,
+		animationTime : 0,
 		animate: function(animationSequences){
 			this.animationSequences=animationSequences;
 			this.doCypherAnimation();
@@ -57,6 +58,8 @@ CypherAnimator = function(){
 		},
 		setAnimationStarted : function(){
 			this.animationFinished=false;
+			this.animationTime=(new Date()).getTime();
+
 		},
 		isAnimationFinished : function(){
 			return this.animationFinished;
@@ -64,7 +67,11 @@ CypherAnimator = function(){
 		finishAnimation : function(){
 			var _this=this;
 			if(this.animationSequences[0][STEPS]!=0)
-				window.setTimeout(function(){_this.doCypherAnimation()},animationSpeedMillis);
+			{
+				var diff = animationSpeedMillis-((new Date()).getTime()-this.animationTime);
+				if(diff<0)diff=0;
+				window.setTimeout(function(){_this.doCypherAnimation()},diff);
+			}
 			else {
 				this.animationFinished=true;
 			}

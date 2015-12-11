@@ -46,14 +46,8 @@ ClockClockPreparer = {
 		};
 	},
 	preparePaintBuffers : function() {
-		this.circleBuffer=this.getBuffer();
-		this.secondaryBuffer=this.getBuffer();
-	},
-	getBuffer : function(){
-		var buffer = document.createElement("canvas");  
-		buffer.width = this.layout.width;
-		buffer.height = this.layout.height;					
-		return buffer;
+		this.circleBuffer=getCanvas(this.layout.width,this.layout.height);
+		this.secondaryBuffer=getCanvas(this.layout.width,this.layout.height);
 	},
 	prepareBackground: function(){
 		var ctx = this.circleBuffer.getContext("2d");
@@ -85,13 +79,21 @@ ClockClockPreparer = {
 	},
 }
 
+function getCanvas(width,height){
+	var cvs = document.createElement("canvas");
+	cvs.width=width;
+	cvs.height=height;
+	return cvs;
+}
+
 CypherPreparer = {
 	prepareCypher : function(cypher,ccPreparer){
 		cypher.animator = new CypherAnimator();
 		cypher.animator.view = this.getCypherView(ccPreparer);
 	},
 	getCypherView:function(ccPreparer){
-		var cvs = this.getCanvas(ccPreparer);
+		var cvs = getCanvas(ccPreparer.layout.width,ccPreparer.layout.height);
+		ccPreparer.node.appendChild(cvs);
 		var view = new CypherView();
 		view.ctx = cvs.getContext("2d");
 		view.cbx = ccPreparer.secondaryBuffer.getContext("2d"),
@@ -102,14 +104,5 @@ CypherPreparer = {
 		view.color = ccPreparer.color;
 		view.nodeHand = ccPreparer.node.getAttribute("hand");
 		return view;
-	},
-	getCanvas : function(ccPreparer){
-		var cvs = document.createElement("canvas");
-		ccPreparer.node.appendChild(cvs);
-		cvs.width=ccPreparer.layout.width;
-		cvs.height=ccPreparer.layout.height;
-		cvs.style.marginLeft=0;
-		cvs.style.float="left";
-		return cvs;
 	}
 };

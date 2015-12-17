@@ -1,4 +1,4 @@
-Cypher = function(){
+function Cypher(){
 	return {
 		cypherNumber : 0,
 		animator : null,
@@ -21,7 +21,7 @@ Cypher = function(){
 	};
 }
 
-CypherAnimator = function(){
+function CypherAnimator(){
 	return {
 		view:null,
 		animationSequences : null,
@@ -59,8 +59,8 @@ CypherAnimator = function(){
 	};
 }
 
-CypherView = function(){
-	var v={
+function CypherView(){
+	return {
 		ctx : null,
 		cbx : null,
 		frontBuffer : null,
@@ -84,12 +84,10 @@ CypherView = function(){
 		},
 		drawCompleteCypher : function(){
 			var cyphers=0;
-			for(var lineNo=0; lineNo<3; lineNo++){
-				for(var colNo = 0; colNo < 2; colNo++){
-					this.drawTwoClockHands(colNo,lineNo,cyphers++);
-					cyphers++;
-				}
-			}
+			doForAllCypherParts(this,function(lineNo,colNo){
+				this.drawTwoClockHands(colNo,lineNo,cyphers++);
+				cyphers++;
+			})
 		},
 		drawTwoClockHands : function(x,y,cyphers){
 			this.drawClockHand(x,y,ClockClockUtils.getStartOfAnimation(cyphers,this.animationSequences));
@@ -103,5 +101,4 @@ CypherView = function(){
 				this.hand-3, this.color, this.nodeHand );
 		}
 	};
-	return v;
 }

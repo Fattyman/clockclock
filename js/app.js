@@ -1,4 +1,4 @@
-ClockClock = function(n){
+ function ClockClock(n){
 	var v = {
 		cyphers : [],
 		morphToDateTime : function(){

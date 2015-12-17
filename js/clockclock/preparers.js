@@ -1,23 +1,21 @@
 ClockClockPreparer = {
-	target : null,
+	app : null,
 	color : null,
 	backgroundColor : null,
 	layout : null,
-	node : null,
 	circleBuffer : null,
 	secondaryBuffer : null,
 	
-	prepare : function(target,node){
-		node.extend(target);
-		this.target=target;
-		this.node=node;
-		this.prepareLayout();
+	prepare : function(app,node){
+		node.extend(app);
+		this.app=app;
+		this.prepareColorsAndLayout(node);
 		this.preparePaintBuffers();
 		this.prepareBackground();
-		this.prepareCyphers();
+		this.prepareCyphers(node);
 	},
-	prepareLayout : function(){
-		var style=getComputedStyle(this.node);
+	prepareColorsAndLayout : function(node){
+		var style=getComputedStyle(node);
 		this.prepareColors(style);
 		this.prepareClockClockLayout(style);
 	},
@@ -53,16 +51,16 @@ ClockClockPreparer = {
 		var ctx = this.circleBuffer.getContext("2d");
 		ctx.fillStyle="#fff";
 		ctx.fillRect(0,0,this.layout.width,this.layout.height);
-		for(var y=0; y<3; y++)
-			for(var x = 0; x<2; x++)
-				ClockClockDrawUtils.drawClockCypherBackground(ctx,x,y,this.layout.radius,this.color,this.backgroundColor);
+		doForAllCypherParts(this,function(lineNo,colNo){
+			ClockClockDrawUtils.drawClockCypherBackground(ctx,colNo,lineNo,this.layout.radius,this.color,this.backgroundColor);
+		});
 	},
-	prepareCyphers : function(){
+	prepareCyphers : function(node){
 		for(var cyphers=0;cyphers<cyphersCount;cyphers++)
 		{
 			var cypher = new Cypher(this);
-			CypherPreparer.prepareCypher(cypher,this);
-			this.target.cyphers.push(cypher);
+			CypherPreparer.prepareCypher(cypher,this,node);
+			this.app.cyphers.push(cypher);
 		}
 	},
 }
@@ -94,13 +92,13 @@ function createCanvas(width,height){
 }
 
 CypherPreparer = {
-	prepareCypher : function(cypher,ccPreparer){
+	prepareCypher : function(cypher,ccPreparer,node){
 		cypher.animator = new CypherAnimator();
-		cypher.animator.view = this.getCypherView(ccPreparer);
+		cypher.animator.view = this.getCypherView(ccPreparer,node);
 	},
-	getCypherView : function(ccPreparer){
+	getCypherView : function(ccPreparer,node){
 		var cvs = createCanvas(ccPreparer.layout.width,ccPreparer.layout.height);
-		ccPreparer.node.appendChild(cvs);
+		node.appendChild(cvs);
 		var view = new CypherView();
 		view.ctx = cvs.getContext("2d");
 		view.cbx = ccPreparer.secondaryBuffer.getContext("2d"),
@@ -109,7 +107,7 @@ CypherPreparer = {
 		view.radius = ccPreparer.layout.radius;
 		view.hand = ccPreparer.layout.hand;
 		view.color = ccPreparer.color;
-		view.nodeHand = ccPreparer.node.getAttribute("hand");
+		view.nodeHand = node.getAttribute("hand");
 		return view;
 	}
 };

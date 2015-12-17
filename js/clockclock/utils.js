@@ -1,3 +1,11 @@
+function doForAllCypherParts(ctx,fkt){
+	for(var lineNo=0; lineNo<3; lineNo++){
+		for(var colNo = 0; colNo < 2; colNo++){
+			fkt.call(ctx,lineNo,colNo);
+		}
+	}
+}
+
 ClockClockUtils = {
 	getSpeed : function(){
 		var speed = 0;

@@ -1,9 +1,11 @@
-Cypher = function(preparer){
-	var cypher = {
-		cypherNumber:0,
+Cypher = function(){
+	return {
+		cypherNumber : 0,
+		animator : null,
 		morph : function(newCypherNumber,morphingMode){
 			if(this.shouldAnimationStart(newCypherNumber,morphingMode)){
-				var animationSequences = this.prepareCypherAnimations(newCypherNumber);
+				var animationSequences = CypherAnimatorPreparer.prepareCypherAnimations(this.cypherNumber,newCypherNumber);
+				this.cypherNumber=newCypherNumber;
 				this.animator.animate(animationSequences);
 			}
 		},
@@ -15,37 +17,15 @@ Cypher = function(preparer){
 		},
 		hasCypherChanged : function(newCypherNumber){
 			return this.cypherNumber!=newCypherNumber;
-		},
-		prepareCypherAnimations : function(newCypherNumber){
-			var animationSequences = [];
-			for(var hand=0;hand<12;hand++){
-				animationSequences.push(this.getSequenceConfiguration(newCypherNumber,hand));
-			}
-			this.saveCypherContent(newCypherNumber);
-			return animationSequences;
-		},
-		saveCypherContent:function(newCypherNumber){
-			this.cypherNumber=newCypherNumber;
-		},
-		getSequenceConfiguration : function(newCypherNumber,hand){
-			var startAngle = this.getAngleForPosition(this.cypherNumber,hand);
-			var endAngle = this.getAngleForPosition(newCypherNumber,hand);
-			var offset = (endAngle-startAngle+ClockClockUtils.getSpeed()*360)/ClockClockConfig[cfgMode].steps;
-			return [startAngle,ClockClockConfig[cfgMode].steps,offset,0];
-		},
-		getAngleForPosition : function(cypherPart,hand){
-			return pos[cyphers[cypherPart][hand]];
 		}
 	};
-	CypherPreparer.prepareCypher(cypher,preparer);
-	return cypher;
 }
 
 CypherAnimator = function(){
 	return {
 		view:null,
-		animationSequences:null,
-		animationFinished:true,
+		animationSequences : null,
+		animationFinished : true,
 		animationTime : 0,
 		animate: function(animationSequences){
 			this.animationSequences=animationSequences;
@@ -85,28 +65,28 @@ CypherView = function(){
 		cbx : null,
 		frontBuffer : null,
 		backBuffer : null,
-		radius :null,
+		radius : null,
 		hand : null,
 		nodeHand : null,
 		color : null,
 		drawAllCypherParts : function(animationSequences){
 			this.animationSequences=animationSequences;
 			this.drawCypherBackground();
-			this.drawCompleteCypher();
+			this.drawCypherForeground();
 		},
 		drawCypherBackground : function(){
 			this.cbx.drawImage(this.frontBuffer,0,0);
 		},
-		drawCompleteCypher : function(){
+		drawCypherForeground : function(){
 			this.cbx.strokeStyle=this.color;
-			this.drawAllClockHands();
+			this.drawCompleteCypher();
 			this.ctx.drawImage(this.backBuffer,0,0);
 		},
-		drawAllClockHands : function(){
+		drawCompleteCypher : function(){
 			var cyphers=0;
-			for(var y=0; y<3; y++){
-				for(var x = 0; x<2; x++){
-					this.drawTwoClockHands(x,y,cyphers++);
+			for(var lineNo=0; lineNo<3; lineNo++){
+				for(var colNo = 0; colNo < 2; colNo++){
+					this.drawTwoClockHands(colNo,lineNo,cyphers++);
 					cyphers++;
 				}
 			}

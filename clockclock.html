@@ -7,39 +7,25 @@
 			var app= angular.module('ClockClockApp',[]);
 		</script>
 		<script type="text/javascript" src="js/baseutils.js"></script>
-		<script type="text/javascript" src="js/clockclock/config.js"></script>
 		<script type="text/javascript" src="js/app.js"></script>
-		<script type="text/javascript" src="js/clockclock/utils.js"></script>
-		<script type="text/javascript" src="js/clockclock/preparers.js"></script>
-		<script type="text/javascript" src="js/clockclock/cyphers.js"></script>
-		<script type="text/javascript" src="js/controllers/clockclock.js"></script>
-		<script type="text/javascript" src="js/controllers/morphing.js"></script>
-		<script type="text/javascript">
-			var checkload = function(){
-				try{
-					if(document.readyState !== "complete")
-						setTimeout("checkload()",1)
-					else
-						Controller.start();
-				}catch(e){
-					alert(getMemberInfoOf(e));
-				}
-			};
+		
+		<script type="text/javascript" src="js/clockclock/config.js"></script>
 
-			Controller = {
-				start : function(){
-					var clocks = document.getElementsByTagName("span");
-					for(var cl=0;cl<clocks.length;cl++){
-						var div=clocks[cl];
-						if(div.className.indexOf("clockclock")!=-1){
-							new ClockClock(div);
-						}
-					}
-				}
-			};
-		</script>
+		<script type="text/javascript" src="js/clockclock/utils/clockclock.js"></script>
+		<script type="text/javascript" src="js/clockclock/utils/clockclockdraw.js"></script>
+		
+		<script type="text/javascript" src="js/clockclock/preparers/clockclock.js"></script>
+		<script type="text/javascript" src="js/clockclock/preparers/cypher.js"></script>
+		<script type="text/javascript" src="js/clockclock/preparers/cypheranimator.js"></script>
+		
+		<script type="text/javascript" src="js/clockclock/cyphers/cypher.js"></script>
+		<script type="text/javascript" src="js/clockclock/cyphers/animator.js"></script>
+		<script type="text/javascript" src="js/clockclock/cyphers/view.js"></script>
+		
+		<script type="text/javascript" src="js/angular/clockclock.js"></script>
+		<script type="text/javascript" src="js/angular/morphing.js"></script>
 	</head>
-	<body ng-app="ClockClockApp" style="margin:0;" style="background-color:#000;" onload="javascript:checkload();">
+	<body ng-app="ClockClockApp" style="margin:0;" style="background-color:#000;" onload="javascript:applicationLoaded();">
 		<center><H1>Clock Clock</H1></center>
 		<div style="font-size:16px;font-weight:bold;">
 			This is a reminescence to the original physical "clock clock" which you can have a look onto this <a target="_blank" href="http://www.humanssince1982.com/the-clock-clock-white/">page</a>.

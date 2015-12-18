@@ -21,7 +21,9 @@ var cyphersCount=TIME_AND_DATE;
 var animationSpeedMillis=ANIMATIONS_MILLIS;
 var morphingMode=MORPH_ALL_CYPHERS;
 var cfgMode='slow';
-
+/**
+ * @Konfiguration
+ */
 var ClockClockConfig = {
 	slow : {
 		steps : STEPS_VERY_LONG,

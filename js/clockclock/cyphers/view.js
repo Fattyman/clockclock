@@ -37,7 +37,7 @@ function CypherView(){
 				this.cbx, this.radius,
 				x, y,
 				ClockClockUtils.getStartOfAnimation(cyphers,this.animationSequences),
-				this.hand-3, this.color, this.nodeHand );
+				this.hand-6, this.color, this.nodeHand, true );
 		}
 	};
 }

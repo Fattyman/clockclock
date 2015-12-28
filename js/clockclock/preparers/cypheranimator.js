@@ -15,8 +15,13 @@ CypherAnimatorPreparer = {
 		var offset = 	endAngle -
 						startAngle +
 						ClockClockUtils.getSpeed() *
-						360;
-		return [startAngle,0,offset,steps];
+						(hand%2==0 ? 360 : 720);
+		return {
+					start : startAngle, 
+					time : 0, 
+					size : offset, 
+					duration : steps
+				};
 	},
 	getAngleForPosition : function(cypherPart,hand){
 		return pos[cyphers[cypherPart][hand]];

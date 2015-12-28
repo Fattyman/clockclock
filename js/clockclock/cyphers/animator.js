@@ -23,7 +23,7 @@ function CypherAnimator(){
 		},
 		finishAnimation : function(){
 			var _this=this;
-			if(this.animationSequences[0][1]!=this.animationSequences[0][3])
+			if(this.animationSequences[0].time!=this.animationSequences[0].duration)
 			{
 				var diff = animationSpeedMillis-((new Date()).getTime()-this.animationTime);
 				if(diff<0)diff=0;

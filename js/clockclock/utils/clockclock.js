@@ -1,11 +1,6 @@
 ClockClockUtils = {
 	getSpeed : function(){
-		var speed = 0;
-		while(speed == 0){
-			var sign = Math.round(Math.random())*2-1;
-			speed=sign*(0+Math.round(Math.random()*1));
-		}
-		return speed;
+		return Math.round(Math.random())*2-1;
 	},
 	getDateTimeParts : function(){
 		var now = new Date();
@@ -26,8 +21,8 @@ ClockClockUtils = {
 	},
 	getStartOfAnimation : function(i,animationSequences){
 		var animationSequence=animationSequences[i];
-		var start = animationSequence[0] + this.easeInOut(animationSequence[2],animationSequence[1],animationSequence[3]);
-		animationSequence[1]++;
+		var start = animationSequence.start + this.easeInOut(animationSequence.size,animationSequence.time,animationSequence.duration);
+		animationSequence.time++;
 		return start;
 	},
 	easeInOut : function(size,time,duration){

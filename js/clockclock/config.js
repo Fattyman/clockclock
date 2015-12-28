@@ -2,9 +2,13 @@ ONLY_TIME=6;
 TIME_AND_DATE=12;
 SHORT=4;
 
-STEPS_LONG=75;
+STEPS_LONG=150;
 STEPS_VERY_LONG=500;
 STEPS_SHORT=45;
+
+STEPS_FULL_LONG=150;
+STEPS_FULL_VERY_LONG=500;
+STEPS_FULL_SHORT=45;
 
 ANIMATION_INTERVAL_ONE_SECOND=1000;
 ANIMATION_INTERVAL_FIVE_SECONDS=5000;
@@ -27,18 +31,22 @@ var cfgMode='slow';
 var ClockClockConfig = {
 	slow : {
 		steps : STEPS_VERY_LONG,
+		fullsteps : STEPS_FULL_VERY_LONG,
 		animationIntervall : ANIMATION_INTERVAL_FIVE_SECONDS
 	},
 	mixed : {
 		steps : STEPS_LONG,
+		fullsteps : STEPS_FULL_LONG,
 		animationIntervall : ANIMATION_INTERVAL_FIVE_SECONDS
 	},
 	fast : {
 		steps : STEPS_LONG,
+		fullsteps : STEPS_FULL_LONG,
 		animationIntervall : ANIMATION_INTERVAL_ONE_SECOND
 	},
 	blitz : {
 		steps : STEPS_SHORT,
+		fullsteps : STEPS_FULL_SHORT,
 		animationIntervall : ANIMATION_INTERVAL_ONE_SECOND
 	}
 };

@@ -29,14 +29,14 @@ function CypherView(){
 			})
 		},
 		drawTwoClockHands : function(x,y,cyphers){
-			this.drawClockHand(x,y,ClockClockUtils.getStartOfAnimation(cyphers,this.animationSequences));
-			this.drawClockHand(x,y,ClockClockUtils.getStartOfAnimation(cyphers+1,this.animationSequences));
+			this.drawClockHand(x,y,cyphers);
+			this.drawClockHand(x,y,cyphers+1);
 		},
-		drawClockHand : function(x,y,animationStart){
+		drawClockHand : function(x,y,cyphers){
 			ClockClockDrawUtils.drawAngleLine(
 				this.cbx, this.radius,
 				x, y,
-				animationStart,
+				ClockClockUtils.getStartOfAnimation(cyphers,this.animationSequences),
 				this.hand-3, this.color, this.nodeHand );
 		}
 	};
